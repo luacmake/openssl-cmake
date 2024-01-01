@@ -79,6 +79,11 @@ set(LIBSRC
 add_library(ssl ${LIBSRC})
 
 target_link_libraries(ssl crypto)
+target_include_directories(ssl
+  PUBLIC
+    ${OPENSSL_CMAKE_SOURCE_DIR}/include
+    ${OPENSSL_CMAKE_BINARY_DIR}/include
+)
 
 set_target_properties(ssl PROPERTIES
     VERSION "${LIB_VERSION}" SOVERSION "${LIB_SOVERSION}")

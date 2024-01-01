@@ -35,8 +35,10 @@ if(NOT DEFINED OPENSSL_SRC_DIR)
 endif()
 
 set(OPENSSL_BIN_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+set(OPENSSL_CMAKE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+set(OPENSSL_CMAKE_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH "${OPENSSL_CMAKE_SOURCE_DIR}/cmake")
 
 option(WITH_APPS "Build applications" ON)
 
@@ -220,10 +222,10 @@ endif()
 file(COPY "${OPENSSL_SRC_DIR}/include/internal" DESTINATION include)
 file(COPY "${OPENSSL_SRC_DIR}/include/openssl" DESTINATION include)
 
-configure_file("${CMAKE_SOURCE_DIR}/opensslconf.h.cmake"
+configure_file("${OPENSSL_CMAKE_SOURCE_DIR}/opensslconf.h.cmake"
     "${OPENSSL_BIN_DIR}/include/openssl/opensslconf.h")
 
-file(READ "${CMAKE_SOURCE_DIR}/c_rehash.cmake" C_REHASH)
+file(READ "${OPENSSL_CMAKE_SOURCE_DIR}/c_rehash.cmake" C_REHASH)
 string(REPLACE "@OPENSSLDIR@" "${OPENSSLDIR}" C_REHASH "${C_REHASH}")
 string(REPLACE "@CMAKE_INSTALL_PREFIX@" "${CMAKE_INSTALL_PREFIX}" C_REHASH "${C_REHASH}")
 file(WRITE "${OPENSSL_BIN_DIR}/c_rehash" "${C_REHASH}")
